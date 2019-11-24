@@ -1,0 +1,41 @@
+h1 {
+    font-family: Arial;
+    font-size: 3em;
+    
+    
+    
+}
+.header { /*fix alignment*/
+    width: 90vw;
+    text-align: center;
+}
+.top-section {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    
+    
+}
+.timer {
+   float: right;
+   width: 10vw;
+    text-align: right;
+   
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+.text-container {
+    display: flex;
+    justify-content: center;
+    font-family: Arial;
+    font-weight: bold;
+}
+.button-container {
+display: flex;
+justify-content: center;
+}
