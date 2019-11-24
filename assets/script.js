@@ -6,6 +6,10 @@ var questionText = document.querySelector("#text");
 var buttonContainer = document.querySelector(".button-container");
 var alertText = document.createElement("h2"); //pops up when user is wrong or correct
 var questionNum = 0;
+var numQuestionsCorrect = 0;
+
+var secondsLeft = 60;
+var timeEl = document.querySelector("#time");
 
 
 function quizFunction(questionNum) {
@@ -13,16 +17,19 @@ function quizFunction(questionNum) {
         questionText.textContent = questionsArray[questionNum];
         var answerButton = document.createElement("button");
         buttonContainer.appendChild(answerButton).textContent = answerChoiceArray[questionNum][i];
-        answerButton.addEventListener("click", function(event) {
+        answerButton.addEventListener("click", function (event) {
             var element = event.target;
             if (element.textContent === correctAnswersArray[questionNum]) {
-                alertText.textContent='Correct!';  
+                alertText.textContent = 'Correct!';
+                numQuestionsCorrect++;
             }
             else {
-                alertText.textContent='Wrong!';     
+                alertText.textContent = 'Wrong!';
+                secondsLeft -= 10;
             }
-            document.body.appendChild(alertText); 
-            setTimeout(function(){ alertText.parentElement.removeChild(alertText); }, 2000);
+            document.body.appendChild(alertText); //display 'Correct' or 'Wrong' after selecting answer
+            //remove alert 2 seconds after being displayed
+            setTimeout(function () { alertText.parentElement.removeChild(alertText); }, 2000);
             questionNum++;
             buttonContainer.innerHTML = '';
             quizFunction(questionNum);
@@ -30,9 +37,9 @@ function quizFunction(questionNum) {
     }
 };
 
+
 startButton.addEventListener("click", function (event) {
-    var secondsLeft = 60;
-    var timeEl = document.querySelector("#time");
+    
 
     var timerInterval = setInterval(function () {
         secondsLeft--;
