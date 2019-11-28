@@ -1,3 +1,4 @@
+
 var startButton = document.querySelector("#start-button");
 var questionsArray = ["Which is best animal?", "What colour is sky?", "What time is the night?", "How many legs does horse have?"];
 var answerChoiceArray = [["Dog", "Cat", "Chicken", "Monkey"], ["Blue", "Green", "Pink", "Rainbow"], ["Late", "7am", "Lunchtime", "3pm"], ["4", "7", "1", "0"]]
@@ -106,10 +107,20 @@ function pastQuizUsers() {
             + highScoresArray[i].highscore + "";
         usernameAndScore.style = "list-style: none";
         ul.appendChild(usernameAndScore);
+
     };
+    var backButton = document.createElement("button");
+    backButton.textContent = "Go back!";
+    backButton.style = "margin-top: 10px";
+    ul.append(backButton);
+
+    backButton.addEventListener("click", function (event) {
+        landingPage();
+    })
 
 
 }
+
 
 
 startButton.addEventListener("click", function (event) {
@@ -128,4 +139,8 @@ startButton.addEventListener("click", function (event) {
     }, 1000);
     startButton.parentElement.removeChild(startButton); //remove the start button
     quizFunction(questionNum);
-})
+});
+
+function landingPage() {
+    location.reload();
+};
