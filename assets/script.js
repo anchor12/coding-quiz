@@ -5,6 +5,8 @@ var answerChoiceArray = [["Dog", "Cat", "Chicken", "Monkey"], ["Blue", "Green", 
 var correctAnswersArray = ["Dog", "Blue", "Late", "4"];
 var questionText = document.querySelector("#text");
 var buttonContainer = document.querySelector(".button-container");
+var ul = document.createElement("ul");
+buttonContainer.appendChild(ul);
 var alertText = document.createElement("h2"); //pops up when user is wrong or correct
 var questionNum = 0;
 var numQuestionsCorrect = 0;
@@ -22,7 +24,12 @@ function quizFunction(questionNum) {
     for (var i = 0; i < answerChoiceArray[questionNum].length; i++) {
         questionText.textContent = questionsArray[questionNum];
         var answerButton = document.createElement("button");
-        buttonContainer.appendChild(answerButton).textContent = answerChoiceArray[questionNum][i];
+       
+        var li = document.createElement("li");
+        li.style = "list-style:none; margin: 10px 0px 10px 0px";
+       
+        ul.appendChild(li);
+        li.appendChild(answerButton).textContent = answerChoiceArray[questionNum][i];
         answerButton.addEventListener("click", function (event) {
             var element = event.target;
             if (element.textContent === correctAnswersArray[questionNum]) {
