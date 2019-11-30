@@ -1,11 +1,21 @@
 
 var startButton = document.querySelector("#start-button");
-var questionsArray = ["Which is best animal?", "What colour is sky?", "What time is the night?", "How many legs does horse have?"];
-var answerChoiceArray = [["Dog", "Cat", "Chicken", "Monkey"], ["Blue", "Green", "Pink", "Rainbow"], ["Late", "7am", "Lunchtime", "3pm"], ["4", "7", "1", "0"]]
-var correctAnswersArray = ["Dog", "Blue", "Late", "4"];
+var questionsArray = ["Commonly used data types do NOT include", 
+    "How do you create a button using Javascript DOM?", 
+        "What function allows you to set a trigger for a certain event in Javascript?", 
+            "What does HTML stand for?"];
+var answerChoiceArray = [["String", "Integer", "Prompt", "Boolean"], 
+    ["element.createButton()", "document.createElement('button')", 
+        "document.createButton()", "document.makeButtonElement()"], 
+            ["addEventListener()", "addListenerTrigger()", "elementTriggerEvent()", "addTrigger()"], 
+            ["Hypertext Mix Language", "Hyper Textual Millenium Learnings",
+                 "Hypertext Markup List", "Hypertext Markup Language"]];
+var correctAnswersArray = ["Prompt", "document.createElement('button')", "addEventListener()",
+     "Hypertext Markup Language"];
 var questionText = document.querySelector("#text");
+
 var buttonContainer = document.querySelector(".button-container");
-var ul = document.createElement("ul");
+var ul = document.querySelector("ul");
 buttonContainer.appendChild(ul);
 var alertText = document.createElement("h2"); //pops up when user is wrong or correct
 var questionNum = 0;
@@ -13,6 +23,7 @@ var numQuestionsCorrect = 0;
 
 var secondsLeft = 60;
 var timeEl = document.querySelector("#time");
+timeEl.style.fontFamily = "Arial";
 var SECONDS_DEDUCTION = 10;
 var timeRanOut = 0;
 var quizFinished = 0;
@@ -24,7 +35,7 @@ function quizFunction(questionNum) {
     for (var i = 0; i < answerChoiceArray[questionNum].length; i++) {
         questionText.textContent = questionsArray[questionNum];
         var answerButton = document.createElement("button");
-       
+        
         var li = document.createElement("li");
         li.style = "list-style:none; margin: 10px 0px 10px 0px";
        
@@ -32,6 +43,7 @@ function quizFunction(questionNum) {
         li.appendChild(answerButton).textContent = answerChoiceArray[questionNum][i];
         answerButton.addEventListener("click", function (event) {
             var element = event.target;
+            alertText.style.fontFamily = "Arial";
             if (element.textContent === correctAnswersArray[questionNum]) {
                 alertText.textContent = 'Correct!';
                 numQuestionsCorrect++;
@@ -46,7 +58,7 @@ function quizFunction(questionNum) {
                 alertText.parentElement.removeChild(alertText);
             }, 2000);
             questionNum++;
-            buttonContainer.innerHTML = '';
+            ul.innerHTML = '';
             //display ending screen at end of quiz
             if (questionNum === questionsArray.length) {
                 quizFinished = 1;
@@ -59,7 +71,9 @@ function quizFunction(questionNum) {
 
 function quizEndDisplay() {
     buttonContainer.innerHTML = '';
+    buttonContainer.style.fontFamily = "Arial";
     if (timeRanOut === 0) {
+        
         questionText.textContent = 'You finished the quiz! You got ' + numQuestionsCorrect + ' questions correct!'
     }
     else {
@@ -116,10 +130,27 @@ function pastQuizUsers() {
         ul.appendChild(usernameAndScore);
 
     };
-    var backButton = document.createElement("button");
+
+    var newButtonDiv = document.createElement("div");
+    document.body.appendChild(newButtonDiv);
+    newButtonDiv.style.textAlign="center";
+
+
+
+    var clearHighScores = document.createElement("button"); //creating clear scores button
+    clearHighScores.textContent = "Clear High Scores";
+    clearHighScores.style = "margin: 10px 10px 0px 0px";
+    newButtonDiv.appendChild(clearHighScores);
+
+    clearHighScores.addEventListener("click", function(event) { //clears local storage when button clicked
+        localStorage.clear();
+        ul.textContent="";
+    });
+
+    var backButton = document.createElement("button"); //creating back button
     backButton.textContent = "Go back!";
     backButton.style = "margin-top: 10px";
-    ul.append(backButton);
+    newButtonDiv.append(backButton);
 
     backButton.addEventListener("click", function (event) {
         landingPage();
@@ -131,14 +162,14 @@ function pastQuizUsers() {
 
 
 startButton.addEventListener("click", function (event) {
-    var timerInterval = setInterval(function () {
+    var timerInterval = setInterval(function () { //sets 60 second timer
         secondsLeft--;
         timeEl.textContent = secondsLeft;
-        if (quizFinished === 1) {
+        if (quizFinished === 1) { //when user finishes quiz timer stops
             clearInterval(timerInterval);
             quizEndDisplay();
         }
-        if (secondsLeft === 0) {
+        if (secondsLeft === 0) { //quiz ending page shows when timer hits zero
             clearInterval(timerInterval);
             timeRanOut = 1;
             quizEndDisplay();

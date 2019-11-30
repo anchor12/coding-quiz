@@ -37,3 +37,12 @@ justify-content: center;
 flex-wrap: wrap;
 }
 
+button {
+    background-color: rgb(61, 4, 61);
+    color: white;
+    font-family: arial;
+    font-size: 1.3em;
+    
+}
+
+
